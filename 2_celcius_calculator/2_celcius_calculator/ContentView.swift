@@ -8,12 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var celsius: String = "";
+    
+    var fahrenheit: Double {
+        if let celsiusValue = Double(celsius) {
+            return (celsiusValue * 9/5) + 32
+        } else {
+            return 0
+        }
+    }
+            
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Celsius to Fahrenheit")
+                .font(.largeTitle)
+                .padding()
+            
+            HStack {
+                TextField("Enter Celsius", text: $celsius)
+                    .keyboardType(.decimalPad)
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Text("Fahrenheit: \(fahrenheit, specifier: "%.2f")")
+                    .padding()
+            }
+            
+            Spacer()
         }
         .padding()
     }
